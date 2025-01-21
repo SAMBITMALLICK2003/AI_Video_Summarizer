@@ -1,58 +1,110 @@
-# AI Video Summarizer
+# Meeting Summarizer and Minutes Maker 🔄
 
-AI Video Summarizer is a web application that uses Streamlit to provide a user-friendly interface for summarizing video content with the help of AI. It utilizes Google's Gemini 2.0 model and other tools to analyze and generate insights from uploaded video files.
+## Overview
+
+The **Meeting Summarizer and Minutes Maker** is a Streamlit-based application that leverages the power of Gemini 2.0 to process meeting recordings and generate valuable outputs such as meeting minutes, summaries, action items, and insights. It also provides a feature to chat with the meeting recording for quick analysis and answers.
+
+---
 
 ## Features
 
-- Upload and analyze video files in various formats (MP4, MOV, AVI).
-- Utilize Google's Gemini 2.0 model for video content analysis.
-- Generate detailed and actionable insights based on user queries.
-- Display video playback and analysis results in the web interface.
+1. **Upload Meeting Recordings**: Supports audio and video files in formats like `mp4`, `mov`, `avi`, `mp3`, and `wav`.
+2. **Generate Meeting Minutes**: Extract detailed, structured minutes, including key points, decisions, and action items.
+3. **Generate Summary**: Create concise summaries highlighting main topics, takeaways, and conclusions.
+4. **Extract Action Items**: Identify tasks, responsibilities, and deadlines from the meeting.
+5. **Generate Insights**: Get high-level analytics, trends, and outcomes from the meeting.
+6. **Chat with Meeting**: Interact with the meeting content by asking questions and receiving AI-generated responses.
 
-## Installation
+---
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/SAMBITMALLICK2003/AI_Video_Summarizer.git
-    cd AI_Video_Summarizer
+## Prerequisites
+
+1. Python 3.8 or higher.
+2. Install the necessary dependencies:
+    ```bash
+    pip install streamlit google-generativeai python-dotenv python-docx
+    ```
+3. Set up a `.env` file with your Google API key:
+    ```
+    GOOGLE_API_KEY=your_api_key_here
     ```
 
-2. Create and activate a virtual environment:
-    ```sh
-    python3 -m venv venv
-    source venv/bin/activate
-    ```
+---
 
-3. Install the required dependencies:
-    ```sh
+## How to Run
+
+1. Clone the repository and navigate to the project directory.
+2. Install the dependencies:
+    ```bash
     pip install -r requirements.txt
     ```
-
-## Usage
-
-1. Set up environment variables:
-    - Create a `.env` file in the root directory.
-    - Add your Google API key to the `.env` file:
-        ```sh
-        GOOGLE_API_KEY=your_api_key_here
-        ```
-
-2. Run the Streamlit app:
-    ```sh
+3. Run the Streamlit app:
+    ```bash
     streamlit run app.py
     ```
 
-3. Open your browser and navigate to `http://localhost:8501` to access the application.
+---
 
-## Deployment
+## Usage
 
-The application is deployed and accessible via the following Streamlit link:
-[AI Video Summarizer](https://ai-video-summarizer.streamlit.app/)
+1. **Upload a Meeting Recording**:
+    - Select an audio or video file from your device.
 
-## Contributing
+2. **Choose an Option**:
+    - Click on buttons to:
+        - Generate meeting minutes.
+        - Generate a summary.
+        - Extract action items.
+        - Generate insights.
 
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+3. **Chat with the Meeting**:
+    - Use the chat interface to ask questions about the meeting recording.
+
+4. **Download Outputs**:
+    - All outputs are downloadable as `.docx` files.
+
+---
+
+## Technologies Used
+
+- **Streamlit**: For the web application interface.
+- **Google Generative AI (Gemini 2.0)**: For advanced AI-based analysis.
+- **Python-Docx**: For generating downloadable `.docx` documents.
+- **dotenv**: For managing API keys securely.
+
+---
+
+## Screenshots
+
+- **Home Page**:
+    - A clean and professional UI for uploading meeting recordings and generating outputs.
+- **Chat Interface**:
+    - Intuitive interface for querying the meeting content.
+
+---
+
+## File Structure
+
+- `app.py`: Main application script.
+- `.env`: Environment file for storing API keys.
+- `requirements.txt`: Python dependencies.
+
+---
+
+## Notes
+
+1. Ensure you have a valid Google API key for accessing Gemini 2.0.
+2. For large files, ensure your system has adequate resources for processing.
+
+---
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+## Acknowledgments
+
+- **Gemini 2.0** for its robust AI capabilities.
+- **Streamlit** for enabling rapid and interactive app development.
