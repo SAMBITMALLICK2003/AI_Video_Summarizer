@@ -6,7 +6,6 @@ duckduckgo-search
 fastapi
 uvicorn
 python-docx
-tempfile
 groq
 openai
 sqlalchemy
