@@ -25,7 +25,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("Meeting_Analysis_Toolkit 🔄")
+st.title("Meeting Analysis Toolkit 🔄")
 st.header("Powered by Gemini 2.0")
 
 @st.cache_resource
