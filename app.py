@@ -20,7 +20,7 @@ if API_KEY:
     genai.configure(api_key=API_KEY)
 
 st.set_page_config(
-    page_title="Meeting Summarizer and Minutes Maker",
+    page_title="Meeting Analysis Toolkit",
     page_icon="🔄",
     layout="wide"
 )
