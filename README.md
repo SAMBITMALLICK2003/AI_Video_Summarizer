@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Meeting Summarizer and Minutes Maker** is a Streamlit-based application that leverages the power of Gemini 2.0 to process meeting recordings and generate valuable outputs such as meeting minutes, summaries, action items, and insights. It also provides a feature to chat with the meeting recording for quick analysis and answers.
+The **Meeting Analysis Toolkit** is a Streamlit-based application that leverages the power of Gemini 2.0 to process meeting recordings and generate valuable outputs such as meeting minutes, summaries, action items, and insights. It also provides a feature to chat with the meeting recording for quick analysis and answers.
 
 ---
 
@@ -71,16 +71,6 @@ The **Meeting Summarizer and Minutes Maker** is a Streamlit-based application th
 - **Google Generative AI (Gemini 2.0)**: For advanced AI-based analysis.
 - **Python-Docx**: For generating downloadable `.docx` documents.
 - **dotenv**: For managing API keys securely.
-
----
-
-## Screenshots
-
-- **Home Page**:
-    - A clean and professional UI for uploading meeting recordings and generating outputs.
-- **Chat Interface**:
-    - Intuitive interface for querying the meeting content.
-
 ---
 
 ## File Structure
