@@ -1,4 +1,4 @@
-# Meeting Summarizer and Minutes Maker 🔄
+# Meeting Analysis Toolkit🔄
 
 ## Overview
 
