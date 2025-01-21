@@ -32,8 +32,8 @@ st.header("Powered by Gemini 2.0")
 def initialize_agent():
     return Agent(
         name="Meeting Summarizer",
-        model=Gemini(id="gemini-2.0-flash-exp"),
-        tools=[DuckDuckGo()],
+        model=Gemini(id="gemini-1.5-flash"),
+        tools=[],
         markdown=True,
     )
 
@@ -82,7 +82,6 @@ if uploaded_file:
             with st.spinner("Generating meeting minutes..."):
                 processed_file = upload_file(file_path)
                 while processed_file.state.name == "PROCESSING":
-                    time.sleep(1)
                     processed_file = get_file(processed_file.name)
 
                 minutes_prompt = (
@@ -114,7 +113,6 @@ if uploaded_file:
             with st.spinner("Generating meeting summary..."):
                 processed_file = upload_file(file_path)
                 while processed_file.state.name == "PROCESSING":
-                    time.sleep(1)
                     processed_file = get_file(processed_file.name)
 
                 summary_prompt = (
@@ -146,7 +144,7 @@ if uploaded_file:
             with st.spinner("Extracting action items..."):
                 processed_file = upload_file(file_path)
                 while processed_file.state.name == "PROCESSING":
-                    time.sleep(1)
+
                     processed_file = get_file(processed_file.name)
 
                 action_items_prompt = (
@@ -177,7 +175,7 @@ if uploaded_file:
             with st.spinner("Generating insights..."):
                 processed_file = upload_file(file_path)
                 while processed_file.state.name == "PROCESSING":
-                    time.sleep(1)
+
                     processed_file = get_file(processed_file.name)
 
                 insights_prompt = (
@@ -219,7 +217,7 @@ if uploaded_file:
                     with st.spinner("Generating response..."):
                         processed_file = upload_file(file_path)
                         while processed_file.state.name == "PROCESSING":
-                            time.sleep(1)
+
                             processed_file = get_file(processed_file.name)
 
                         chat_prompt = (
