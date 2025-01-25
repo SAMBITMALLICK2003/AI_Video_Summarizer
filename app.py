@@ -12,20 +12,22 @@ from dotenv import load_dotenv
 from docx import Document
 from docx.shared import Pt, RGBColor
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-load_dotenv()
+import re  # Import regex module
 import os
+
+load_dotenv()
 
 API_KEY = os.getenv("GOOGLE_API_KEY")
 if API_KEY:
     genai.configure(api_key=API_KEY)
 
 st.set_page_config(
-    page_title="Meeting Analysis Toolkit",
+    page_title="Meeting Summarizer and Minutes Maker",
     page_icon="🔄",
     layout="wide"
 )
 
-st.title("Meeting Analysis Toolkit 🔄")
+st.title("Meeting Summarizer and Minutes Maker 🔄")
 st.header("Powered by Gemini 2.0")
 
 @st.cache_resource
@@ -44,22 +46,37 @@ uploaded_file = st.file_uploader(
     help="Upload a meeting recording for summarization and minutes generation."
 )
 
-def format_text_in_doc(doc, content, title):
-    doc.add_heading(title, level=1)
+def clean_markdown_formatting(text):
+    """
+    Removes markdown formatting like ** for bold text.
+    """
+    return re.sub(r"\*\*(.*?)\*\*", r"\1", text)
+
+def format_text_in_doc(doc, content, title, feature_name):
+    """
+    Formats text into a Word document.
+    Includes a feature name in the document header.
+    """
+    doc.add_heading(f"{title} ({feature_name})", level=1)
     paragraphs = content.split("\n")
+
     for para in paragraphs:
         if para.strip():
-            p = doc.add_paragraph(para)
+            cleaned_para = clean_markdown_formatting(para)
+            p = doc.add_paragraph(cleaned_para)
             p.alignment = WD_PARAGRAPH_ALIGNMENT.JUSTIFY
             run = p.runs[0]
             run.font.size = Pt(12)
             run.font.name = 'Arial'
             run.font.color.rgb = RGBColor(0, 0, 0)
 
-def generate_document(response_content, file_name, title):
+def generate_document(response_content, file_name, title, feature_name):
+    """
+    Generates a Word document with formatted content and saves it to a temporary file.
+    """
     doc_file = Path(tempfile.gettempdir()) / file_name
     doc = Document()
-    format_text_in_doc(doc, response_content, title)
+    format_text_in_doc(doc, response_content, title, feature_name)
     doc.save(doc_file)
     return doc_file
 
@@ -96,7 +113,12 @@ if uploaded_file:
             st.subheader("Meeting Minutes")
             st.markdown(response.content)
 
-            doc_file = generate_document(response.content, "meeting_minutes.docx", "Meeting Minutes")
+            doc_file = generate_document(
+                response.content, 
+                "meeting_minutes.docx", 
+                "Meeting Minutes", 
+                "Generate Minutes"
+            )
 
             st.download_button(
                 label="🔗 Download Minutes",
@@ -127,7 +149,12 @@ if uploaded_file:
             st.subheader("Meeting Summary")
             st.markdown(response.content)
 
-            doc_file = generate_document(response.content, "meeting_summary.docx", "Meeting Summary")
+            doc_file = generate_document(
+                response.content, 
+                "meeting_summary.docx", 
+                "Meeting Summary", 
+                "Generate Summary"
+            )
 
             st.download_button(
                 label="🔗 Download Summary",
@@ -144,7 +171,6 @@ if uploaded_file:
             with st.spinner("Extracting action items..."):
                 processed_file = upload_file(file_path)
                 while processed_file.state.name == "PROCESSING":
-
                     processed_file = get_file(processed_file.name)
 
                 action_items_prompt = (
@@ -158,7 +184,12 @@ if uploaded_file:
             st.subheader("Action Items")
             st.markdown(response.content)
 
-            doc_file = generate_document(response.content, "action_items.docx", "Action Items")
+            doc_file = generate_document(
+                response.content, 
+                "action_items.docx", 
+                "Action Items", 
+                "Generate Action Items"
+            )
 
             st.download_button(
                 label="🔗 Download Action Items",
@@ -175,7 +206,6 @@ if uploaded_file:
             with st.spinner("Generating insights..."):
                 processed_file = upload_file(file_path)
                 while processed_file.state.name == "PROCESSING":
-
                     processed_file = get_file(processed_file.name)
 
                 insights_prompt = (
@@ -189,7 +219,12 @@ if uploaded_file:
             st.subheader("Meeting Insights")
             st.markdown(response.content)
 
-            doc_file = generate_document(response.content, "meeting_insights.docx", "Meeting Insights")
+            doc_file = generate_document(
+                response.content, 
+                "meeting_insights.docx", 
+                "Meeting Insights", 
+                "Generate Insights"
+            )
 
             st.download_button(
                 label="🔗 Download Insights",
@@ -217,12 +252,11 @@ if uploaded_file:
                     with st.spinner("Generating response..."):
                         processed_file = upload_file(file_path)
                         while processed_file.state.name == "PROCESSING":
-
                             processed_file = get_file(processed_file.name)
 
                         chat_prompt = (
                             f"""
-                            Analyse the video meeting and answer the users questions concisely.
+                            Analyse the video meeting and answer the user's questions concisely.
 
                             Question: {query}
                             """
