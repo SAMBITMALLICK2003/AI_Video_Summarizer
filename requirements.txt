@@ -1,4 +1,5 @@
 phidata
+regex
 python-dotenv
 yfinance
 packaging
